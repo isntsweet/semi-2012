@@ -4,18 +4,24 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.semi.demo.dao.BoardDAO;
 import com.semi.demo.dao.BookmarkDAO;
 import com.semi.demo.dao.FindDAO;
 import com.semi.demo.dao.ReviewDAO;
+import com.semi.demo.dao.UserDAO;
 import com.semi.demo.entity.Board;
 import com.semi.demo.entity.BookMark;
 import com.semi.demo.entity.Review;
@@ -189,31 +195,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<String> getStar(double grade) {
-		List<String> list = new ArrayList<>();
-
-		if (grade != 0) {
-			boolean run = true;
-			int cnt = 3;
-			int tmp = 1;
-
-			while (run) {
-				if (tmp <= cnt) {
-					list.add("on");
-				} else {
-					list.add("");
-				}
-				if (tmp == 5)
-					run = false;
-				tmp++;
-			}
-		} else {
-			list = Arrays.asList("", "", "", "", "");
-		}
-		return list;
-	}
-
-	@Override
 	public String tagSplit(String tag) {
 		String[] tagBox_ = !tag.isBlank() ? tag.trim().replaceAll("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9#]", "").split("value") : null;
 		StringBuilder sb = new StringBuilder();
@@ -225,11 +206,13 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return sb.toString();
 	}
-
+	
 	/** 조회수 증가 */
 	@Override
 	public void increaseViewCount(int bid) {
 		bdao.increaseCount(bid);
 	}
+
+	
 	
 }

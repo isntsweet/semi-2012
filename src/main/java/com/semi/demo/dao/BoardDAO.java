@@ -52,4 +52,6 @@ public interface BoardDAO {
 	@Update("UPDATE board SET viewCnt = viewCnt+1 WHERE bid=#{bid}")
 	public void increaseCount(int bid);
 	
+	
+	
 }
