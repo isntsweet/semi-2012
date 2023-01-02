@@ -83,7 +83,8 @@ public class UserController {
 	@PostMapping("/update")
 	public String update(HttpServletRequest req, Model model) {
 		HttpSession ss = req.getSession();
-		
+		User loginuser = (User) ss.getAttribute("loginuser");
+
 		String uid = req.getParameter("uid");
 		String pwdbox[] = req.getParameterValues("pwd");
 		String uname = req.getParameter("name");
@@ -110,11 +111,13 @@ public class UserController {
 			return "/user/msg";
 		} else {
 			service.update(u);
-			/** 세션 등록 추가 */
-			u = service.get(uid);
-			ss.setAttribute("loginuser", u);
+			if (!loginuser.getUid().equals("admin")) {
+				/** 세션 등록 추가 */
+				u = service.get(uid);
+				ss.setAttribute("loginuser", u);
+			}
 			model.addAttribute("msg", "개인정보 수정 완료");
-			model.addAttribute("url", "/user/list");
+			model.addAttribute("url", "/board/list");
 			return "/user/msg";
 		}
 
@@ -148,8 +151,8 @@ public class UserController {
 			return "/user/msg";
 
 		case UserService.UID_NOT_EXIST:
-			model.addAttribute("msg", "회원 가입 페이지로 이동합니다.");
-			model.addAttribute("url", "/user/register");
+			model.addAttribute("msg", "아이디를 확인해주세요.");
+			model.addAttribute("url", "/user/login");
 			return "/user/msg";
 
 		default:
@@ -166,18 +169,23 @@ public class UserController {
 		model.addAttribute("url", "/user/login");
 		return "/user/msg";
 	}
-	
+
 	/** 회원 삭제 */
 	@GetMapping("/delete/{uid}")
-	public String delete(@PathVariable String uid) {
-		service.delete(uid);
+	public String deleteForm(@PathVariable String uid, Model model) {
+		User u = service.get(uid);
+		model.addAttribute("user", u);
 		return "user/delete";
 	}
-	
-	@GetMapping("/delete/c/{uid}")
-	public String deleteC(@PathVariable String uid) {
+
+	@PostMapping("/delete")
+	public String delete(HttpServletRequest req, Model model) {
+		String uid = req.getParameter("uid");
 		service.delete(uid);
-		return "redirect:/user/list";
+		
+		model.addAttribute("msg", "탈퇴 완료 되었습니다.");
+		model.addAttribute("url", "/board/main");
+		return "/user/msg";
 	}
 
 }

@@ -33,7 +33,7 @@
 					<form action="/board/main" method="post">
 						<table class="main-search-tb">
 							<tr>
-								<td><p>Tag 검색</p></td>
+								<th class="txtmain">Tag 검색</th>
 								<td><input name="findtag" class="some_class_name"
 									value="${findtag}" /></td>
 							</tr>
@@ -41,7 +41,30 @@
 								<td><p>지역</p></td>
 								<td><input name="findarea" class="some_class_name"
 									value="${findarea }" /></td>
-							</tr>
+							</tr> 
+<%-- 							<tr>
+								<th class="txtmain">지역 검색</th>
+						<td><select name="area" class="form-select board-input" style="color:#333">
+									<option value="전체">전체</option>
+									<option value="서울">서울</option>
+									<option value="부산">부산</option>
+									<option value="대구">대구</option>
+									<option value="인천">인천</option>
+									<option value="광주">광주</option>
+									<option value="대전">대전</option>
+									<option value="울산">울산</option>
+									<option value="세종">세종</option>
+									<option value="경기">경기</option>
+									<option value="강원">강원</option>
+									<option value="충청">충청</option>
+									<option value="경상">경상</option>
+									<option value="전라">전라</option>
+									<option value="제주">제주</option>
+						</select></td>
+							</tr>--%>
+							
+							
+							
 							<tr>
 								<td colspan="2"><input class="btn full maincolor"
 									type="submit" value="검색" /></td>
@@ -76,31 +99,30 @@
 									onclick="location.href='/board/detail/${b.bid}'" />
 							</div>
 							<div class="content-list-bookmark mb-2">
+								<!-- 태그 -->
 								<p class="board-view-tag">
 									<c:set var="t" value="${fn:split(b.tag,'/')}"></c:set>
 									<c:forEach var="w" items="${t}">
 										<span class="subcolor">${w}</span>
 									</c:forEach>
 								</p>
+
+								<!-- 북마크 -->
+								<c:set var="fill" value="" />
+								<c:set var="url" value="bookmark/${b.bid }" />
 								<c:forEach var="m" items="${mlist }">
-									<c:choose>
-										<c:when test="${m.bid eq b.bid }">
-											<span class="material-symbols-outlined fill"
-												onclick="location.href='/board/bookmarkdel/${b.bid}/${uid}'">
-												bookmark </span>
-										</c:when>
-										<c:otherwise>
-											<span class="material-symbols-outlined"
-												onclick="location.href='/board/bookmark/${b.bid}/${uid}'">
-												bookmark </span>
-										</c:otherwise>
-									</c:choose>
+									<c:if test="${m eq b.bid }">
+										<c:set var="fill" value="fill" />
+										<c:set var="url" value="bookmark/del/${b.bid }" />
+									</c:if>
 								</c:forEach>
-								<span class="material-symbols-outlined"
-									onclick="location.href='/board/bookmark/${b.bid}/${uid}'">
-									bookmark </span>
+
+								<span class="bookmark material-symbols-outlined ${fill }"
+									onclick="location.href='/board/${url}'"> bookmark </span>
+								<!-- 북마크 -->
 							</div>
-							<div class="main-list-title mb-3" onclick = "location.href='/board/detail/${b.bid}'">
+							<div class="main-list-title mb-3"
+								onclick="location.href='/board/detail/${b.bid}'">
 								<h5 class="mb-1">${b.title }</h5>
 								<p>${b.addr }</p>
 							</div>

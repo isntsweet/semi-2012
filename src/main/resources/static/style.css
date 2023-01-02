@@ -102,7 +102,12 @@ h6 {
 .intro-btn {
   display: flex;
   border-top: 1px solid #e3e3e3;
-  padding: 1.2rem 0;
+  padding-top: 1.2rem;
+  padding-bottom: 0.7rem;
+}
+
+.bookmark-btn {
+  display: flex;
 }
 
 .intro tbody,
@@ -412,7 +417,7 @@ input[type='file'] {
 .board-view-content {
   line-height: 1.7;
   letter-spacing: 0.2px;
-  padding-inline: 1.5rem;
+  /* padding-inline: 1.5rem; */
   color: #222;
   margin-bottom: 2rem;
 }
@@ -536,11 +541,13 @@ input[type='file'] {
   opacity: 0.5;
   transition: opacity 0.6s;
 }
+
 .descbox:hover .btn {
   position: absolute;
   opacity: 1;
   transition: opacity 0.6s;
 }
+
 .descbox:hover .txt {
   color: rgba(255, 255, 255, 0.8);
   cursor: default;
@@ -548,6 +555,7 @@ input[type='file'] {
   opacity: 1;
   transition: opacity 0.6s;
 }
+
 .descbox .btn {
   opacity: 0;
 } */
@@ -613,6 +621,7 @@ input[type='file'] {
   border-radius: 10px;
   /* border: solid 2px #e2edff; */
 }
+
 .main-search h3 {
   color: #4880ee;
   padding-bottom: 1rem;
@@ -658,6 +667,7 @@ input:focus {
   /* --tags-border-color: none !important; */
   /* background-color: #e2edff; */
   border-radius: 5px;
+  border: 1px solid #d1d1d1 !important;
 }
 
 .tagify__tag > div > * {
@@ -666,7 +676,7 @@ input:focus {
 }
 
 .tagify__tag {
-  margin: 8px 0 8px 10px !important;
+  margin: 10px 0 10px 10px !important;
 }
 
 .tags-look .tagify__dropdown__item {
@@ -702,6 +712,7 @@ input:focus {
   text-indent: -20px;
   border: 0;
 }
+
 /* 게시물 디테일 */
 
 .board-view {
@@ -940,6 +951,7 @@ table.board-view-infomation {
   padding-block: 0.5rem;
   background-color: rgb(255 255 255 / 80%);
   border-radius: 5px 0px 0px 0px;
+  box-shadow: 2px 4px 12px rgb(0 0 0 / 10%);
 }
 
 textarea:disabled.board-input {
@@ -956,4 +968,52 @@ textarea:disabled.board-input {
 .main-list-title {
   padding-inline: 0.2rem;
   cursor: pointer;
+}
+
+.bookmark {
+  cursor: pointer;
+}
+
+select.form-select {
+  word-wrap: normal;
+  background-color: #e8f0fd8c;
+  font-size: 14px;
+  border: none;
+  padding-inline: 20px;
+  padding-block: 12px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+select:focus {
+  outline: 1px solid #487fee96;
+}
+
+option {
+  font-size: 16px;
+}
+
+select.board-input.form-select {
+  border: 1px solid #d1d1d1;
+  background-color: transparent;
+  font-size: 16px;
+  padding-inline: 20px;
+  padding-block: 12px;
+  border-radius: 5px;
+  width: 100%;
+  color: #666;
+}
+
+.form-check-label{
+	margin-right: 0.5rem;
+}
+.form-check-input{
+	margin-right: 0.3rem;
+}
+
+.board-view-content > p > img {
+  width: 33% !important;
+  height: auto !important;
+  padding-inline: 0.2rem;
+  padding-bottom: 1.5rem;
 }
